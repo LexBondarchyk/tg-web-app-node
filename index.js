@@ -1,8 +1,9 @@
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
 
-const token = '6635266755:AAHHS9HfqOH9JUBABzm0PuCd_tsPYGa4qL4';
+const token = (process.env.BOT_TOKEN);
 const webAppUrl = 'https://cheery-brioche-704b1a.netlify.app';
 
 const bot = new TelegramBot(token, {polling: true});
@@ -33,13 +34,13 @@ bot.on('message', async (msg) => {
         })
     }
 
-    if(msg?.web_app_data?.data) {
+    if(msg && msg.web_app_data && msg.web_app_data.data) {
         try {
-            const data = JSON.parse(msg?.web_app_data?.data)
+            const data = JSON.parse(msg && msg.web_app_data && msg.web_app_data.data)
             console.log(data)
             await bot.sendMessage(chatId, 'Дякую за відповідь!')
-            await bot.sendMessage(chatId, 'Ваша країна: ' + data?.country);
-            await bot.sendMessage(chatId, 'Ваша вулиця: ' + data?.street);
+            await bot.sendMessage(chatId, 'Ваша країна: ' + data && data.country);
+            await bot.sendMessage(chatId, 'Ваша вулиця: ' + data && data.street);
 
             setTimeout(async () => {
                 await bot.sendMessage(chatId, 'Всю інформацію ви отримаєте у цьому чаті');
