@@ -16,7 +16,7 @@ bot.on('message', async (msg) => {
     const text = msg.text;
 
     if(text === '/start') {
-        await bot.sendMessage(chatId, 'Ниже появится кнопка, заполни форму', {
+        await bot.sendMessage(chatId, 'Зявилася кнопка нижче, заповни форму', {
             reply_markup: {
                 keyboard: [
                     [{text: 'Заповніть форму', web_app: {url: webAppUrl + '/form'}}]
@@ -37,12 +37,12 @@ bot.on('message', async (msg) => {
         try {
             const data = JSON.parse(msg?.web_app_data?.data)
             console.log(data)
-            await bot.sendMessage(chatId, 'Спасибо за обратную связь!')
-            await bot.sendMessage(chatId, 'Ваша страна: ' + data?.country);
-            await bot.sendMessage(chatId, 'Ваша улица: ' + data?.street);
+            await bot.sendMessage(chatId, 'Дякую за відповідь!')
+            await bot.sendMessage(chatId, 'Ваша країна: ' + data?.country);
+            await bot.sendMessage(chatId, 'Ваша вулиця: ' + data?.street);
 
             setTimeout(async () => {
-                await bot.sendMessage(chatId, 'Всю информацию вы получите в этом чате');
+                await bot.sendMessage(chatId, 'Всю інформацію ви отримаєте у цьому чаті');
             }, 3000)
         } catch (e) {
             console.log(e);
